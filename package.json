@@ -24,6 +24,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "yarn:install": "yarn",
     "yarn:outdated": "yarn outdated || cd .",
     "yarn:update": "yarn upgrade-interactive --latest"
   },

@@ -5,18 +5,18 @@
     "main.js.map": "/gdm-xr-three/static/js/main.a837624f.chunk.js.map",
     "runtime-main.js": "/gdm-xr-three/static/js/runtime-main.8d338f04.js",
     "runtime-main.js.map": "/gdm-xr-three/static/js/runtime-main.8d338f04.js.map",
-    "static/js/2.77a04b22.chunk.js": "/gdm-xr-three/static/js/2.77a04b22.chunk.js",
-    "static/js/2.77a04b22.chunk.js.map": "/gdm-xr-three/static/js/2.77a04b22.chunk.js.map",
+    "static/js/2.05dcf8cd.chunk.js": "/gdm-xr-three/static/js/2.05dcf8cd.chunk.js",
+    "static/js/2.05dcf8cd.chunk.js.map": "/gdm-xr-three/static/js/2.05dcf8cd.chunk.js.map",
     "static/js/3.8fed81a3.chunk.js": "/gdm-xr-three/static/js/3.8fed81a3.chunk.js",
     "static/js/3.8fed81a3.chunk.js.map": "/gdm-xr-three/static/js/3.8fed81a3.chunk.js.map",
     "index.html": "/gdm-xr-three/index.html",
     "static/css/main.5403734e.chunk.css.map": "/gdm-xr-three/static/css/main.5403734e.chunk.css.map",
-    "static/js/2.77a04b22.chunk.js.LICENSE.txt": "/gdm-xr-three/static/js/2.77a04b22.chunk.js.LICENSE.txt",
+    "static/js/2.05dcf8cd.chunk.js.LICENSE.txt": "/gdm-xr-three/static/js/2.05dcf8cd.chunk.js.LICENSE.txt",
     "static/media/suzanne.8d88e641.glb": "/gdm-xr-three/static/media/suzanne.8d88e641.glb"
   },
   "entrypoints": [
     "static/js/runtime-main.8d338f04.js",
-    "static/js/2.77a04b22.chunk.js",
+    "static/js/2.05dcf8cd.chunk.js",
     "static/css/main.5403734e.chunk.css",
     "static/js/main.a837624f.chunk.js"
   ]

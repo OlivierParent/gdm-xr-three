@@ -1,5 +1,6 @@
 import {
   DirectionalLightHelper,
+  HemisphereLightHelper,
   MathUtils,
   Object3D,
   PointLightHelper,
@@ -7,7 +8,7 @@ import {
 } from "three";
 import { useEffect, useRef } from "react";
 import { useHelper } from "@react-three/drei";
-import { useControls } from "leva";
+import { folder, useControls } from "leva";
 import { useThree } from "@react-three/fiber";
 
 const LightingGui = () => {
@@ -15,79 +16,86 @@ const LightingGui = () => {
   const targetObject = new Object3D();
   scene.add(targetObject);
 
-  const { ambientLightColor, ambientLightIntensity } = useControls(
-    "Lighting - Ambient",
-    {
-      ambientLightColor: { label: "Color", value: "#ffffff" },
-      ambientLightIntensity: {
+  const ambientLight = useControls("Lightings", {
+    "Ambient Light": folder({
+      color: { label: "Color", value: "#ffffff" },
+      intensity: {
         label: "Intensity",
         max: 5,
         min: 0,
         step: 0.1,
         value: 0.1,
       },
-    }
-  );
-  const { directionalLightColor, directionalLightIntensity } = useControls(
-    "Lighting - Directional",
-    {
-      directionalLightColor: { label: "Color", value: "#ffffff" },
-      directionalLightIntensity: {
+    }),
+  });
+  const directionalLight = useControls("Lightings", {
+    "Directional Light": folder({
+      color: { label: "Color", value: "#ffffff" },
+      intensity: {
         label: "Intensity",
         max: 5,
         min: 0,
         step: 0.1,
         value: 0.1,
       },
-    }
-  );
-  const { pointLightColor, pointLightIntensity } = useControls(
-    "Lighting - Point",
-    {
-      pointLightColor: { label: "Color", value: "#ffcc77" },
-      pointLightIntensity: {
+    }),
+  });
+  const hemisphereLight = useControls("Lightings", {
+    "Hemisphere Light": folder({
+      color: { label: "Color", value: "#ffffff" },
+      groundColor: { label: "Ground Color", value: "#ffffff" },
+      intensity: {
+        label: "Intensity",
+        max: 5,
+        min: 0,
+        step: 0.1,
+        value: 0.1,
+      },
+    }),
+  });
+  const pointLight = useControls("Lightings", {
+    Point: folder({
+      color: { label: "Color", value: "#ffcc77" },
+      intensity: {
         label: "Intensity",
         max: 5,
         min: 0,
         step: 0.1,
         value: 0.5,
       },
-    }
-  );
-  const {
-    spotLightColor,
-    spotLightIntensity,
-    spotLightPenumbra,
-    spotLightPosition,
-    spotLightTarget,
-  } = useControls("Lighting - Spot", {
-    spotLightColor: { label: "Color", value: "#ffcc77" },
-    spotLightIntensity: {
-      label: "Intensity",
-      max: 5,
-      min: 0,
-      step: 0.1,
-      value: 0.5,
-    },
-    spotLightPenumbra: {
-      label: "Penumbra",
-      max: 1,
-      min: 0,
-      step: 0.1,
-      value: 0.5,
-    },
-    spotLightPosition: {
-      label: "Position",
-      step: 0.5,
-      value: { x: 0, y: 4, z: 0 },
-    },
-    spotLightTarget: {
-      label: "Target",
-      step: 0.5,
-      value: { x: 0, y: 0, z: 0 },
-    },
+    }),
+  });
+  const spotLight = useControls("Lightings", {
+    Spotlight: folder({
+      color: { label: "Color", value: "#ffcc77" },
+      intensity: {
+        label: "Intensity",
+        max: 5,
+        min: 0,
+        step: 0.1,
+        value: 0.5,
+      },
+      penumbra: {
+        label: "Penumbra",
+        max: 1,
+        min: 0,
+        step: 0.1,
+        value: 0.5,
+      },
+      position: {
+        label: "Position",
+        step: 0.5,
+        value: { x: 0, y: 4, z: 0 },
+      },
+      target: {
+        label: "Target",
+        step: 0.5,
+        value: { x: 0, y: 0, z: 0 },
+      },
+    }),
   });
   const directionalLightRef = useRef();
+  const hemisphereLightRef = useRef();
   const pointLightRef = useRef();
   const spotLightRef = useRef();
 
@@ -97,44 +105,52 @@ const LightingGui = () => {
     directionalLightRef,
     DirectionalLightHelper,
     helperSize,
-    directionalLightColor
+    directionalLight.color
   );
-  useHelper(pointLightRef, PointLightHelper, helperSize, pointLightColor);
-  useHelper(spotLightRef, SpotLightHelper, spotLightColor);
+  useHelper(hemisphereLightRef, HemisphereLightHelper, helperSize);
+  useHelper(pointLightRef, PointLightHelper, helperSize, pointLight.color);
+  useHelper(spotLightRef, SpotLightHelper, spotLight.color);
 
   useEffect(() => {
-    targetObject.position.x = spotLightTarget.x;
-    targetObject.position.y = spotLightTarget.y;
-    targetObject.position.z = spotLightTarget.z;
+    targetObject.position.x = spotLight.target.x;
+    targetObject.position.y = spotLight.target.y;
+    targetObject.position.z = spotLight.target.z;
   });
 
   return (
     <>
       <ambientLight
-        color={ambientLightColor}
-        intensity={ambientLightIntensity}
+        color={ambientLight.color}
+        intensity={ambientLight.intensity}
       />
       <directionalLight
-        color={directionalLightColor}
-        intensity={directionalLightIntensity}
+        color={directionalLight.color}
+        intensity={directionalLight.intensity}
         position={[4, 4, 1]}
         ref={directionalLightRef}
       />
+      <hemisphereLight
+        color={hemisphereLight.color}
+        groundColor={hemisphereLight.groundColor}
+        intensity={hemisphereLight.intensity}
+        position={[0, 1, 0]}
+        ref={hemisphereLightRef}
+      />
       <pointLight
-        color={pointLightColor}
-        intensity={pointLightIntensity}
+        color={pointLight.color}
+        intensity={pointLight.intensity}
         position={[-4, 1, -4]}
         ref={pointLightRef}
       />
       <spotLight
         angle={MathUtils.degToRad(30)}
-        color={spotLightColor}
-        intensity={spotLightIntensity}
-        penumbra={spotLightPenumbra}
+        color={spotLight.color}
+        intensity={spotLight.intensity}
+        penumbra={spotLight.penumbra}
         position={[
-          spotLightPosition.x,
-          spotLightPosition.y,
-          spotLightPosition.z,
+          spotLight.position.x,
+          spotLight.position.y,
+          spotLight.position.z,
         ]}
         ref={spotLightRef}
         target={targetObject}

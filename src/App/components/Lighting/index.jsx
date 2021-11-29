@@ -5,6 +5,11 @@ const Lighting = () => {
     <>
       <ambientLight color={0xffffff} intensity={0.1} />
       <directionalLight color={0xffffff} intensity={1} position={[4, 4, 1]} />
+      <hemisphereLight
+        color={0xffffff}
+        groundColor={0xffffff}
+        position={[0, 1, 0]}
+      />
       <pointLight color={0xffcc77} intensity={0.5} position={[-4, 1, -4]} />
       <spotLight
         angle={MathUtils.degToRad(30)}

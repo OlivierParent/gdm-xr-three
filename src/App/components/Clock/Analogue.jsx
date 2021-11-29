@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { MathUtils } from "three";
 import { useFrame } from "@react-three/fiber";
 import { Text } from "@react-three/drei";

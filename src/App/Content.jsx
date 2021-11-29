@@ -41,7 +41,7 @@ const Content = () => {
     showAxesHelper: { label: "Axes", value: false },
     showGridHelper: { label: "Grid", value: false },
   });
-  const { useComponent } = useControls("General", {
+  const { useComponent } = useControls("Components", {
     useComponent: {
       label: "Component",
       options: components,

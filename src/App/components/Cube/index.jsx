@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { animated, useSpring } from "@react-spring/three";
 
-const Cube = () => {
+const Cube = (props) => {
+  const colors = ["#f00", "#ff0", "#0f0", "#0ff", "#00f", "#f0f"];
+  const color = colors[Math.floor(Math.random() * colors.length)];
   const [toggle, setToggle] = useState(true);
-  const { position } = useSpring({
+  const { opacity, position } = useSpring({
+    opacity: toggle ? 1 : 0.5,
     position: toggle ? [0, 0, 0] : getPosition(),
   });
 
@@ -12,9 +15,17 @@ const Cube = () => {
   }
 
   return (
-    <animated.mesh onClick={() => setToggle(!toggle)} position={position}>
+    <animated.mesh
+      {...props}
+      onClick={() => setToggle(!toggle)}
+      position={position}
+    >
       <boxGeometry args={[1, 1, 1]} />
-      <meshBasicMaterial color={0xffffff * Math.random()} />
+      <animated.meshMatcapMaterial
+        color={color}
+        opacity={opacity}
+        transparent={true}
+      />
     </animated.mesh>
   );
 };

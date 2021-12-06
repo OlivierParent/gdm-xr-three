@@ -11,13 +11,11 @@ const LightingStudio = () => {
       <directionalLight
         castShadow={true}
         color="hsl(210, 100%, 70%)"
-        intensity={1}
         position={[-4, 0, 0]}
       />
       <directionalLight
         castShadow={true}
         color="hsl(30, 100%, 70%)"
-        intensity={1}
         position={[4, 0, 0]}
       />
     </>

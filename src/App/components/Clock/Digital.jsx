@@ -3,7 +3,7 @@ import { MathUtils } from "three";
 import { useFrame } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
 
-const ClockDigital = () => {
+const ClockDigital = (props) => {
   const clockRef = useRef();
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const ClockDigital = () => {
     }
   });
 
-  return <Text ref={clockRef}>Digital Clock</Text>;
+  return <Text fontSize={2} ref={clockRef} {...props} />;
 };
 
 export default ClockDigital;

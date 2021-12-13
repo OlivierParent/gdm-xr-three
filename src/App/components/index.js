@@ -1,9 +1,12 @@
 export { default as Button } from "./Button";
 export { default as Clock } from "./Clock";
 export { default as Cube } from "./Cube";
+export { default as Image } from "./Image";
 export { default as Lighting } from "./Lighting";
 export { default as LoremIpsum } from "./LoremIpsum";
+export { default as Particles } from "./Particles";
+export { default as ReactRouter } from "./ReactRouter";
+export { default as ReactRouterPathAlpha } from "./ReactRouter/PathAlpha";
+export { default as ReactRouterPathOmega } from "./ReactRouter/PathOmega";
 export { default as Suzanne } from "./Suzanne";
-export { default as Wouter } from "./Wouter";
-export { default as WouterPathRouter } from "./Wouter/PathRouter";
-export { default as WouterPathWouter } from "./Wouter/PathWouter";
+export { default as SvgLoader } from "./SvgLoader";

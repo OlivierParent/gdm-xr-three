@@ -1,5 +1,5 @@
-import { Suspense, useCallback, useEffect, useState } from "react";
-import { Route, Router } from "wouter";
+import { Suspense } from "react";
+import { HashRouter as Router, Navigate, Routes, Route } from "react-router-dom"
 import { MathUtils } from "three";
 import {
   GizmoHelper,
@@ -15,27 +15,15 @@ import {
   Button,
   Clock,
   Cube,
+  Image,
   Lighting,
   LoremIpsum,
+  Particles,
+  ReactRouter,
+  ReactRouterPathAlpha,
+  ReactRouterPathOmega,
   Suzanne,
-  Wouter,
-  WouterPathRouter,
-  WouterPathWouter,
 } from "./components";
-
-const currentLocation = () => window.location.hash.replace("#", "") || "/";
-const useHashLocation = () => {
-  const [location, setLocation] = useState(currentLocation());
-
-  useEffect(() => {
-    const handler = () => setLocation(currentLocation());
-    window.addEventListener("hashchange", handler);
-    return () => window.removeEventListener("hashchange", handler);
-  }, []);
-
-  const navigate = useCallback((to) => (window.location.hash = to), []);
-  return [location, navigate];
-};
 
 const COMPONENT = Object.freeze({
   Animation: "Animation",
@@ -45,6 +33,8 @@ const COMPONENT = Object.freeze({
   Cube_Positioned: "Cube_Positioned",
   None: "None",
   LoremIpsum: "LoremIpsum",
+  Particles: "Particles",
+  ReactRouter: "ReactRouter",
   Suzanne: "Suzanne",
 });
 
@@ -82,14 +72,16 @@ const Content = () => {
     useComponent: {
       label: "Component",
       options: {
-        "None                  ": COMPONENT.None,
-        "Button                ": COMPONENT.Button,
-        "Clock                 ": COMPONENT.Clock,
-        "Cube                  ": COMPONENT.Cube,
-        "Cube (positioned)     ": COMPONENT.Cube_Positioned,
-        "Lorem Ipsum           ": COMPONENT.LoremIpsum,
-        "Suzanne               ": COMPONENT.Suzanne,
-        "Wouter (Router)       ": COMPONENT.Wouter,
+        "None             ": COMPONENT.None,
+        "Button           ": COMPONENT.Button,
+        "Clock            ": COMPONENT.Clock,
+        "Cube             ": COMPONENT.Cube,
+        "Cube (positioned)": COMPONENT.Cube_Positioned,
+        "Image            ": COMPONENT.Image,
+        "Lorem Ipsum      ": COMPONENT.LoremIpsum,
+        "Particles        ": COMPONENT.Particles,
+        "React Router     ": COMPONENT.ReactRouter,
+        "Suzanne          ": COMPONENT.Suzanne,
       },
       value: COMPONENT.Suzanne,
     },
@@ -104,7 +96,7 @@ const Content = () => {
   }
 
   return (
-    <Router base={process.env.PUBLIC_URL} hook={useHashLocation}>
+    <>
       <>
         {enableInputControls(CONTROLS.Orbit) && (
           <OrbitControls
@@ -138,6 +130,7 @@ const Content = () => {
         </EffectComposer>
       )}
       <Lighting />
+      <Router>
       <>
         {enableComponent(COMPONENT.Button) && <Button />}
         {enableComponent(COMPONENT.Cube) && <Cube />}
@@ -149,16 +142,24 @@ const Content = () => {
             )}
           />
         )}
+        {enableComponent(COMPONENT.ReactRouter) && <ReactRouter />}
         <Suspense fallback={null}>
           {enableComponent(COMPONENT.Clock) && <Clock />}
+          {enableComponent(COMPONENT.Image) && <Image />}
           {enableComponent(COMPONENT.LoremIpsum) && <LoremIpsum />}
+          {enableComponent(COMPONENT.Particles) && <Particles />}
           {enableComponent(COMPONENT.Suzanne) && <Suzanne />}
         </Suspense>
-        {enableComponent(COMPONENT.Wouter) && <Wouter />}
       </>
-      <Route component={WouterPathRouter} path="/router" />
-      <Route component={WouterPathWouter} path="/wouter" />
-    </Router>
+      
+        <Routes>
+          <Route element={<Navigate to="/" />} path="*" />
+          <Route element={<ReactRouterPathAlpha />} path="alpha" />
+          <Route element={<ReactRouterPathOmega />} path="omega" />
+          <Route element={<></>} path="/" />
+        </Routes>
+      </Router>
+   </>
   );
 };
 

@@ -1,25 +1,22 @@
 import { useState } from "react";
-import { useLocation } from "wouter";
+import { useNavigate } from "react-router-dom";
 import { Text } from "@react-three/drei";
 
-const Wouter = () => {
-  const [, setLocation] = useLocation();
+const ReactRouterPathOmega = () => {
+  const navigate = useNavigate();
   const [hover, setHover] = useState(false);
 
   return (
     <Text
       color={hover ? "hsl(0, 100%, 50%)" : "hsl(120, 100%, 70%)"}
-      fontSize={1}
-      onClick={() => {
-        const route = "/router";
-        console.log("Route: ", route);
-        setLocation(route);
-      }}
+      fontSize={0.5}
+      onClick={() => navigate("/alpha")}
       onPointerOut={() => setHover(false)}
       onPointerOver={() => setHover(true)}
-      text="Wouter"
+      position={[0, -2, 0]}
+      text="Path Omega"
     />
   );
 };
 
-export default Wouter;
+export default ReactRouterPathOmega;
